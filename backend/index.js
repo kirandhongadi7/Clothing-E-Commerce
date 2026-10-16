@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const {initializeDatabase} = require("./db/db.connect")
 const productRoutes = require("./routes/product.routes")
+const categoryRoutes = require("./routes/category.routes")
 const dns = require("dns")
 app.use(express.json())
 dns.setServers(["1.1.1.1","8.8.8.8"])
@@ -18,6 +19,7 @@ app.get("/",(req,res) =>{
 })
 
 app.use("/api/products",productRoutes)
+app.use("/api/category",categoryRoutes)
 
 const PORT = process.env.PORT || 5000
 initializeDatabase().then(() =>{

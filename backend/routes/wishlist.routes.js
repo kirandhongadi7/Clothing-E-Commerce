@@ -3,25 +3,18 @@ const {authenticateToken} = require("../middleware/auth")
 const express = require("express")
 const router = express.Router()
 
-
 //add wishlist prod's
-
 router.post("/",authenticateToken, async(req,res) =>{
-
     try{
          const {productId} = req.body
-
          if(!productId) {
             return res.status(400).json({
             success: false,
             message: "Product ID is required",
             });
           }
-
           let wishlist = await Wishlist.findOne({user:req.user.userId})
           console.log(wishlist);
-          
-
           if(!wishlist) {
             wishlist = new Wishlist({user:req.user.userId, products: []})
           }
@@ -29,14 +22,11 @@ router.post("/",authenticateToken, async(req,res) =>{
           const productExists = wishlist.products.some(
             (id) => id.toString() === productId.toString()
         )
-
         if(!productExists){
             wishlist.products.push(productId)
             await wishlist.save()
         }
-
         const updatedWishlist = await Wishlist.findById(wishlist._id).populate("products")
-
         return res.status(200).json({
             success: true,
             message: "successful added product to wishlist",
@@ -51,7 +41,6 @@ router.post("/",authenticateToken, async(req,res) =>{
     });
   }
 })
-
 //get all wishlist data
 router.get("/",authenticateToken,async(req,res) =>{
     try{
@@ -89,7 +78,6 @@ router.delete("/:productId", authenticateToken, async (req, res) => {
         data: { wishlist: [] },
       });
     }
-
     wishlist.products = wishlist.products.filter(
       (id) => id.toString() !== productId.toString()
     );

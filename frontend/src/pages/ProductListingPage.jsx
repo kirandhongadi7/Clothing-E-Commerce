@@ -1,6 +1,7 @@
 import { useProducts } from "../context/ProductContext"
 import { useState } from "react";
 import ProductCard from "../components/ProductCard";
+import Navbar from "../components/Navbar";
 const ProductListingPage = () => {
     const {
     categories,
@@ -22,8 +23,10 @@ const ProductListingPage = () => {
 
     
   return (
-   <div className="container py-4">
-      {/* Top Header & Breadcrumb */}
+   <div>
+    <Navbar />
+    <div className="container py-4">
+      {/* Top Header */}
       <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 pb-2 border-bottom">
         <div>
           <h2 className="font-serif fw-bold text-royal mb-1">Traditional Ethnic Collection</h2>
@@ -187,6 +190,7 @@ const ProductListingPage = () => {
         </div>
       </div>
     </div>
+   </div>
   )
 }
 

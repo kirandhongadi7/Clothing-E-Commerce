@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { useAlert } from "../context/AlertContext";
 
 const ProductDetailsPage = () => {
     const { productId } = useParams();
@@ -17,6 +18,7 @@ const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const {showAlert} = useAlert()
 
     useEffect(() =>{
       const loadProduct = async() =>{
@@ -191,7 +193,13 @@ const ProductDetailsPage = () => {
               <button
                 type="button"
                 className="btn btn-light rounded-0"
-                onClick={() => setQuantity((current) => Math.max(1, current - 1))}
+                onClick={() => {
+                  setQuantity((current) => Math.max(1, current - 1))
+                  showAlert(`Quantity Decreased`, "info");
+
+                }
+                  
+                }
                 disabled={quantity <= 1}
                 aria-label="Decrease quantity"
               >
@@ -201,12 +209,14 @@ const ProductDetailsPage = () => {
               <button
                 type="button"
                 className="btn btn-light rounded-0"
-                onClick={() =>
+                onClick={() =>{
                   setQuantity((current) =>
                     product.stock === null || product.stock === undefined
                       ? current + 1
                       : Math.min(product.stock, current + 1),
                   )
+                  showAlert(`Quantity Increased`, "info");
+                }
                 }
                 disabled={
                   product.stock !== null &&

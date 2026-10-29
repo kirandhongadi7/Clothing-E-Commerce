@@ -1,20 +1,20 @@
-import { useNavigate ,Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 export const LoginPage = () => {
-      const navigate = useNavigate();
-    const { login, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-    if (isAuthenticated) {
+  if (isAuthenticated) {
     navigate("/products");
     return null;
   }
 
-   const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     const result = await login(email, password);
@@ -24,18 +24,24 @@ export const LoginPage = () => {
     }
   };
 
-   return (
+  return (
     <div className="container py-5">
       <div className="row justify-content-center">
         <div className="col-md-6 col-lg-5">
           <div className="p-4 p-md-5 bg-white rounded-4 border border-light shadow-sm">
             <div className="text-center mb-4">
-              <h2 className="font-serif fw-bold text-royal mb-1">Welcome Back</h2>
-              <p className="text-muted small">Sign in to your Aura Ethnic account</p>
+              <h2 className="font-serif fw-bold text-royal mb-1">
+                Welcome Back
+              </h2>
+              <p className="text-muted small">
+                Sign in to your Aura Ethnic account
+              </p>
             </div>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label className="form-label small fw-semibold">Email Address</label>
+                <label className="form-label small fw-semibold">
+                  Email Address
+                </label>
                 <div className="input-group">
                   <span className="input-group-text bg-light border-end-0 text-muted">
                     <i className="bi bi-envelope"></i>
@@ -78,7 +84,10 @@ export const LoginPage = () => {
 
               <div className="text-center small text-muted">
                 Don't have an account yet?{" "}
-                <Link to="/register" className="text-royal fw-bold text-decoration-none">
+                <Link
+                  to="/register"
+                  className="text-royal fw-bold text-decoration-none"
+                >
                   Register here
                 </Link>
               </div>
@@ -88,4 +97,4 @@ export const LoginPage = () => {
       </div>
     </div>
   );
-}
+};

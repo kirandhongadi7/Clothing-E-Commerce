@@ -214,6 +214,24 @@ const sampleProducts = [
     work: "Gold Foil Print & Dori Work",
     isFeatured: false,
   },
+  {
+    name: "Teal Printed Anarkali Suit",
+    description: "A lightweight teal Anarkali suit with subtle floral detailing and a matching dupatta, designed for comfortable everyday wear.",
+    category: "Anarkali Suit",
+    price: 2499,
+    discountPrice: 1999,
+    stock: 20,
+    rating: 2.4,
+    ratingCount: 18,
+    images: [
+      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80",
+    ],
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Teal"],
+    fabric: "Cotton Blend",
+    work: "Printed Floral Detail",
+    isFeatured: false,
+  },
 
   // Kurta Sets
   {

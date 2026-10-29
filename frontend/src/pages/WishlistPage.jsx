@@ -9,7 +9,7 @@ import Navbar from "../components/Navbar";
 export default function WishlistPage() {
   const navigate = useNavigate();
   const { wishlist, removeFromWishlist, isLoading } = useWishlist();
-  const { moveWishlistToCart, isInCart } = useCart();
+  const { moveWishlistToCart } = useCart();
 
   const handleMoveToCart = async (product) => {
     await moveWishlistToCart(product);
@@ -65,8 +65,6 @@ export default function WishlistPage() {
               (product.images && product.images[0]) ||
               product.image ||
               "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80";
-
-            const inCart = isInCart(product._id);
 
             return (
               <div key={product._id} className="col-12 col-sm-6 col-md-4 col-lg-3">
@@ -126,7 +124,7 @@ export default function WishlistPage() {
                         onClick={() => handleMoveToCart(product)}
                       >
                         <i className="bi bi-bag-plus me-2"></i>
-                        <span>{inCart ? "Increase Quantity in Cart" : "Move to Cart"}</span>
+                        <span>Move to Cart</span>
                       </button>
 
                       <button

@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchProductById } from "../api/api";
 import Navbar from "../components/Navbar";
@@ -8,11 +8,13 @@ import { useWishlist } from "../context/wishlistContext";
 
 const ProductDetailsPage = () => {
     const { productId } = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState("M");
   const [selectedColor, setSelectedColor] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
@@ -26,6 +28,7 @@ const ProductDetailsPage = () => {
          if(prodRes.success && prodRes.data.product){
             const prod= prodRes.data.product
             setProduct(prod)
+            setQuantity(1)
             if(prod.sizes && prod.sizes.length >0){
                 setSelectedSize(prod.sizes[0]);
             }
@@ -80,11 +83,18 @@ const ProductDetailsPage = () => {
     const discountPercent = product.discountPrice
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
     : 0;
-  return (
-    <div>
-      <Navbar/>
-     <div className="container py-4">
-        <div className="row g-5">
+    return (
+      <div>
+        <Navbar/>
+       <div className="container py-4">
+          <button
+            type="button"
+            className="btn btn-outline-royal mb-4"
+            onClick={() => navigate("/products")}
+          >
+            <i className="bi bi-arrow-left me-2"></i>Back to Products
+          </button>
+          <div className="row g-5">
 
             <div className="col-lg-6">
           <div className="d-flex flex-column gap-3">
@@ -173,30 +183,42 @@ const ProductDetailsPage = () => {
             </div>
           )}
 
-          {/* Color Selector */}
-          {product.colors && product.colors.length > 0 && (
-            <div className="mb-4">
-              <label className="fw-bold small text-uppercase text-muted d-block mb-2">
-                Available Colors: <span className="text-dark fw-bold">{selectedColor}</span>
-              </label>
-              <div className="d-flex flex-wrap gap-2">
-                {product.colors.map((color) => (
-                  <button
-                    key={color}
-                    type="button"
-                    className={`btn btn-sm px-3 py-1.5 rounded-pill ${
-                      selectedColor === color
-                        ? "btn-dark"
-                        : "btn-outline-secondary"
-                    }`}
-                    onClick={() => setSelectedColor(color)}
-                  >
-                    {color}
-                  </button>
-                ))}
-              </div>
+          <div className="mb-4">
+            <label className="fw-bold small text-uppercase text-muted d-block mb-2">
+              Quantity
+            </label>
+            <div className="d-inline-flex align-items-center border rounded">
+              <button
+                type="button"
+                className="btn btn-light rounded-0"
+                onClick={() => setQuantity((current) => Math.max(1, current - 1))}
+                disabled={quantity <= 1}
+                aria-label="Decrease quantity"
+              >
+                <i className="bi bi-dash"></i>
+              </button>
+              <span className="px-3 fw-semibold" aria-live="polite">{quantity}</span>
+              <button
+                type="button"
+                className="btn btn-light rounded-0"
+                onClick={() =>
+                  setQuantity((current) =>
+                    product.stock === null || product.stock === undefined
+                      ? current + 1
+                      : Math.min(product.stock, current + 1),
+                  )
+                }
+                disabled={
+                  product.stock !== null &&
+                  product.stock !== undefined &&
+                  quantity >= product.stock
+                }
+                aria-label="Increase quantity"
+              >
+                <i className="bi bi-plus"></i>
+              </button>
             </div>
-          )}
+          </div>
 
           {/* Product Specifications Grid */}
           <div className="bg-light p-3 rounded-3 mb-4">
@@ -230,7 +252,7 @@ const ProductDetailsPage = () => {
               onClick={() =>
                 addToCart(
                   product,
-                  1,
+                  quantity,
                   selectedSize,
                   selectedColor || "Standard",
                 )

@@ -46,9 +46,13 @@ export default function AddressModal({ show, onClose, initialData = null, onSave
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const fieldValue =
+      name === "phone" || name === "pincode"
+        ? value.replace(/\D/g, "").slice(0, name === "phone" ? 10 : 6)
+        : value;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : fieldValue,
     }));
   };
 
@@ -117,9 +121,12 @@ export default function AddressModal({ show, onClose, initialData = null, onSave
                   <label className="form-label small fw-semibold">Phone Number *</label>
                   <input
                     type="tel"
+                    inputMode="numeric"
                     name="phone"
                     className="form-control"
                     required
+                    maxLength={10}
+                    pattern="[0-9]{10}"
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="10-digit mobile number"
@@ -169,9 +176,12 @@ export default function AddressModal({ show, onClose, initialData = null, onSave
                   <label className="form-label small fw-semibold">PIN Code *</label>
                   <input
                     type="text"
+                    inputMode="numeric"
                     name="pincode"
                     className="form-control"
                     required
+                    maxLength={6}
+                    pattern="[0-9]{6}"
                     value={formData.pincode}
                     onChange={handleChange}
                     placeholder="560001"

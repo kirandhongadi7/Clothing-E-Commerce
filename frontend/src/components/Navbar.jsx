@@ -105,7 +105,7 @@ export default function Navbar() {
             >
               <i className="bi bi-heart fs-4 text-royal"></i>
               {wishlistCount > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-royal">
+                <span className="position-absolute badge rounded-pill bg-royal navbar-count-badge">
                   {wishlistCount}
                 </span>
               )}
@@ -120,7 +120,7 @@ export default function Navbar() {
             >
               <i className="bi bi-bag fs-4 text-royal"></i>
               {cartCount > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <span className="position-absolute badge rounded-pill bg-danger navbar-count-badge">
                   {cartCount}
                 </span>
               )}

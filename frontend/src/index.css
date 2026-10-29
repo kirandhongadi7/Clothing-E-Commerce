@@ -124,6 +124,12 @@ h1, h2, h3, .font-serif {
   box-shadow: var(--shadow-sm);
 }
 
+.navbar-count-badge {
+  top: 4px;
+  left: calc(100% - 5px);
+  transform: translateX(-50%);
+}
+
 .brand-title {
   font-family: var(--font-serif);
   font-size: 1.65rem;
@@ -230,6 +236,27 @@ h1, h2, h3, .font-serif {
   justify-content: flex-end;
   padding: 1.25rem;
   color: #fff;
+}
+
+.category-card-tag {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+@media (max-width: 575.98px) {
+  .category-card {
+    height: 220px;
+  }
+
+  .category-card-overlay {
+    padding: 0.75rem;
+  }
+
+  .category-card-tag {
+    font-size: 0.65rem;
+  }
 }
 
 /* Star Rating */

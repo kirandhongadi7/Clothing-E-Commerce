@@ -13,9 +13,21 @@ import Footer from "../components/Footer";
  */
 export default function HomePage() {
   const navigate = useNavigate();
-  const { categories, products, isLoading, } = useProducts();
+  const {
+    categories,
+    products,
+    isLoading,
+    setSelectedCategories,
+    setMinRating,
+    setSortBy,
+    setSearchTerm,
+  } = useProducts();
 
-  const handleCategoryClick = () => {
+  const handleCategoryClick = (categoryName) => {
+    setSelectedCategories([categoryName]);
+    setMinRating(1);
+    setSortBy("");
+    setSearchTerm("");
     navigate("/products");
   };
 
@@ -89,12 +101,12 @@ export default function HomePage() {
               <div
                 key={cat._id || cat.name}
                 className="col-6 col-md-4 col-lg-4"
-                onClick={() => handleCategoryClick()}
+                onClick={() => handleCategoryClick(cat.name)}
               >
                 <div className="category-card">
                   <img src={cat.image} alt={cat.name} loading="lazy" />
                   <div className="category-card-overlay">
-                    <span className="badge bg-gold-subtle text-gold mb-1 align-self-start fw-bold" style={{ fontSize: "0.7rem" }}>
+                    <span className="category-card-tag badge bg-gold-subtle text-gold mb-1 align-self-start fw-bold">
                       {cat.tagline || "Handcrafted"}
                     </span>
                     <h5 className="font-serif fw-bold mb-1">{cat.name}</h5>

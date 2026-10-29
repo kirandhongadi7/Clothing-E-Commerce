@@ -3,7 +3,7 @@ import React, {createContext,useContext,useState,useEffect,useCallback,useMemo} 
 import {getCart,addToCartApi,updateCartQuantityApi,removeFromCartApi} from "../api/api";
 
 import { useAuth } from "./AuthContext";
-import { useWishlist } from "./wishlistContext";
+import { useWishlist } from "./WishlistContext";
 
 import { useAlert } from "./AlertContext";
 

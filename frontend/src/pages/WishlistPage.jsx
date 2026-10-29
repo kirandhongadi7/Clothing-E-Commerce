@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useWishlist } from "../context/wishlistContext";
+import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";

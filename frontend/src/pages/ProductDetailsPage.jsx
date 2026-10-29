@@ -4,7 +4,7 @@ import { fetchProductById } from "../api/api";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/wishlistContext";
+import { useWishlist } from "../context/WishlistContext";
 
 const ProductDetailsPage = () => {
     const { productId } = useParams();

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/wishlistContext";
+import { useWishlist } from "../context/WishlistContext";
 
 
 export default function ProductCard({ product }) {

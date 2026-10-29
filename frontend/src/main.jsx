@@ -13,7 +13,7 @@ import { AlertProvider } from "./context/AlertContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { RegisterPage } from "./pages/RegisterPage.jsx";
 import { LoginPage } from "./pages/LoginPage.jsx";
-import { WishlistProvider } from "./context/wishlistContext.jsx";
+import { WishlistProvider } from "./context/WishlistContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import AlertToast from "./components/AlertToast.jsx";
 import CartPage from "./pages/CartPage.jsx";
